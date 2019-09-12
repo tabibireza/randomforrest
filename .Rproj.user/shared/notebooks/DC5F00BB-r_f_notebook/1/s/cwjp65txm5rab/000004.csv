@@ -1,0 +1,3 @@
+"0","MDSplot(rf, train$NSP)"
+"2","Error in MDSplot(rf, train$NSP) : rf does not contain a proximity matrix
+"

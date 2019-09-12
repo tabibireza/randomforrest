@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1568257031955.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "69431854",
+    "lastKnownWriteTime" : 383617696,
+    "last_content_update" : 1568257031955,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "482813d52183442aab78391277b17bf7",
+        "name" : "rf",
+        "title" : "rf"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

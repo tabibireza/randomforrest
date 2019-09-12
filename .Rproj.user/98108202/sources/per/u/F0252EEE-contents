@@ -1,0 +1,4 @@
+x <- 1:12
+x
+sample(x, replace = TRUE)
+10

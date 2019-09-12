@@ -1,0 +1,157 @@
+---
+title: "Random forest "
+output: html_notebook
+---
+
+measurment of response variable (NPS) by independent varibles (UC features)
+
+```{r}
+data <- read.csv("E:/towork/study/r-studio/projects/R_F/rprojects/randomforrest/data2/CTG.csv", header = TRUE  )
+str(data)
+```
+
+ This probabilities is assigned by expert
+ response varible is NSP
+ 1:normal  2:suspect   3:pathologic 
+ 
+ convert NSP to Factor
+```{r}
+data$NSP <- as.factor(data$NSP)
+table(data$NSP)
+```
+
+
+Data partition
+```{r}
+set.seed(123)
+ind <- sample(2, nrow(data), replace = TRUE,prob = c(0.7,0.3))
+train <- data[ind==1,]
+test <- data[ind==2,]
+```
+
+
+
+ random forest , aggrigating trees, classification or regression, not overfitting, 
+ large number of features, Trees:500, mtry is sq.root & P/3 for regression
+ Ntree bootstrap, each bootstrap sample grow tree, predict majority votes for classification, 
+ average for regression 
+
+
+
+
+
+
+```{r}
+install.packages("randomForest")
+library(randomForest)
+```
+
+
+ modelling
+```{r}
+rf <- randomForest(NSP ~ ., data = train)
+print(rf)
+attributes(rf)
+rf$mtry
+```
+
+ prediction and confusion matrix -train data
+```{r}
+library(caret)
+p1 <- predict(rf, train)
+confusionMatrix(p1, train$NSP)
+```
+ 
+
+
+
+ prediction with test data
+```{r}
+p2 <- predict(rf, test)
+confusionMatrix(p2, test$NSP)
+```
+
+
+ error rate we are not to improve the errors after about 300 trees 
+```{r}
+plot(rf)
+
+```
+ 
+
+ Tune mtry
+ we consider all rows and remove 22 variables and then consider the response variable which is NSP and 22 variable !
+```{r}
+t <- tuneRF(train[,-22], train[,22], 
+            stepFactor = 0.5,
+            plot = TRUE,
+            ntreeTry=300,
+            trace = TRUE,
+            improve = 0.05)
+```
+ 
+
+
+ again run model and compare the result with pervious results
+```{r}
+rf <- randomForest(NSP ~ ., data = train,
+                   ntree=300,
+                   mtry=8,
+                   importance=TRUE,
+                   Proximity=TRUE)
+print(rf)
+p1 <- predict(rf, train)
+confusionMatrix(p1, train$NSP)
+p2 <- predict(rf, test)
+confusionMatrix(p2, test$NSP)
+```
+ 
+
+
+ No of nodes for the trees
+ majority of trees have about 80 nodes
+```{r}
+hist(treesize(rf), 
+     main= "No. Nodes for the Trees",
+     col="green")
+```
+
+
+
+# varible importance 
+```{r}
+varImpPlot(rf,
+           sort=T,
+           n.var = 10,
+           main="Top 10")
+importance(rf)
+varUsed(rf) # lower number means No importancy
+```
+
+
+ Partial dependence plot 
+ How a varible of model predict NPS Value
+```{r}
+partialPlot(rf,train, ASTV,"1")
+```
+When Astv less than 60 it tends to predict NPS=1 more stronger. 
+
+
+
+extract single tree here tree 1  
+status - or negative means that prediction is node (end of system)
+```{r}
+getTree(rf,1,labelVar = TRUE) # paitent no 9 is pathology
+```
+
+# for terminal node we dont have nober left daughter or Right daughter becuase it is the end
+
+```{r}
+MDSplot(rf, train$NSP)
+```
+
+# mutidimensional scaling plot of proximity matrix 
+
+
+
+

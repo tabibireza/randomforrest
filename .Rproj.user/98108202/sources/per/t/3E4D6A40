@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1568254521233.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1955963369",
+    "id" : "3E4D6A40",
+    "lastKnownWriteTime" : 1568258810,
+    "last_content_update" : 1568258810721,
+    "path" : "E:/towork/study/r-studio/projects/R_F/rprojects/randomforrest/r_f_notebook.Rmd",
+    "project_path" : "r_f_notebook.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "22,0",
+        "scrollLine" : "11",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

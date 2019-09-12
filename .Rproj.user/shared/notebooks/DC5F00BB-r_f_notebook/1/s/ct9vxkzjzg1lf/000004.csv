@@ -1,0 +1,3 @@
+"0","hist(treesize(rf), "
+"0","     main= ""No. Nodes for the Trees"","
+"0","     col=""green"")"
